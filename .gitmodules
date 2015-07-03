@@ -1,0 +1,9 @@
+[submodule "VirtualPol"]
+	path = VirtualPol
+	url = https://github.com/JavierGonzalez/VirtualPol
+[submodule "Animal-Captcha"]
+	path = Animal-Captcha
+	url = https://github.com/JavierGonzalez/Animal-Captcha
+[submodule "Sorteo-Universal"]
+	path = Sorteo-Universal
+	url = https://github.com/JavierGonzalez/Sorteo-Universal
