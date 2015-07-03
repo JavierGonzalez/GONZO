@@ -1,0 +1,83 @@
+Glosario:
+
+ APU 		- A Petición del Usuario.
+ Kill		- Expulsión de red. (como kick pero a nivel de red)
+ G-Line		- Desconexion y bloqueo de la red. (kick+ban a nivel de red)
+ Takeover	- Tomar el control de un canal ajeno.
+ drop		- Eliminar un NiCK. Tiene que ser APU.
+ forbid		- NiCK prohibido. Por ejemplo "SPEDR0" <- cero en vez de o
+ IP		- Direccion de un pc hacia internet. (IP=host) Ejemplo: 62.42.117.0
+ host		- Ejemplo: CZ2-RAS-2-z-2349.onolab.com
+
+
+Comandos:
+
+ /msg CReG block <NiCK> <motivo> 			- G-Line por CReG. 3min.
+ /msg CReG hblock +<min, hasta 2880> <NiCK> <motivo>
+ /msg CReG iline <host> 				- muestra si el host tiene clones contratados.
+ /gline <ip o host> 					- muestra el tipo de G-line y su fecha de expiracion.
+ /msg CReG SNiCK SUSPEND <NiCK> <días> <motivo> 	- Suspende. +S
+ /msg CReG SNiCK UNSUSPEND <NiCK> 			- Quita el suspendido. -S
+ /msg CReG SNiCK LIST <NiCK> 				- Quien suspendio al NiCK, cuando expira y el motivo.
+ /msg NiCK COMMENT <NiCK> <comentario> 			- Añade un comentario al ese NiCK.
+ /msg NiCK history <NiCK> 				- muestra el historial del NiCK
+ /msg NiCK sinfo <NiCK> 				- Informacion del usuario. IP+fecha expiracion noexpire+ipvirtual+modos+email. Sin registros.
+ /msg NiCK info <NiCK> [full]				- Informacion del usuario. IP+fecha expiracion noexpire+ipvirtual+modos+email+registros. Con full al final ves akicks y -1
+ /msg NiCK VIEWIP <NiCK> 				- Muestra la IP de un NiCK.
+ /msg IPVIRTUAL info <NiCK> 				- ipvirtual del NiCK.
+
+ /msg CReG permite <#canal> 				- permite registrar canales expirados.
+ /msg CReG anula <#canal> 				- anula el registro de un canal.
+ /msg CReG apoyos <NiCK o email> 			- visualiza todos los comandos a CReG de ese NiCK o email.
+ /msg CReG drop <#canal> <motivo> 			- Elimina un canal para volver a ser registrado.
+ /msg CReG restaura <#canal> 				- restaura un canal cuando ha sido expirado por error.
+ /msg CReG marca <#canal> <comentario> 			- marca un canal con un comentario.
+ /msg CHaN history <#canal> 				- Historia y comentarios de un canal.
+ /msg CReG scanal suspend <#canal> <tiempo> <motivo> 	- Suspende un canal. max 10 dias.
+ /msg CReG scanal list <#canal> 			- listado de suspend de un canal.
+ /msg _antispam <join o part> <#canal> 			- Mete o saca a _antispam de un canal.
+ /msg CHaN status <#canal> 				- Lista IPs reales de los clones de un canal. Util para ataques de clones y pillar los proxys.
+
+ /[des]Bloqueo 						- Bloquea o desbloquea el acceso a nuestros NiCKs.
+
+
+Emails:
+
+ CReG@IRC-Hispano.org 					- registro y clasificacion en la web de canales registrados.
+ CHaN@IRC-Hispano.org 					- canales registrados.
+ NiCK@IRC-Hispano.org 					- NiCKs registrados.
+ comercial@IRC-Hispano.org 				- comerciales.
+ quejas@IRC-Hispano.org 				- quejas.
+ info@IRC-Hispano.org 					- informacion y noexpire.
+ entrevistas@IRC-Hispano.org 				- solicitud de entrevistas.
+ amigas@IRC-Hispano.org					- programa webs amigas.
+ sugerencias@IRC-Hispano.org 				- sugerencias.
+ off-topic-ops@listas.IRC-Hispano.org 			- para cualquier cosa que no tenga relacion con el Hispano.
+ ops@listas.IRC-Hispano.org 				- lista de opers.
+ ops-NiCK@listas.IRC-Hispano.org 			- lista de opers. sobre NiCK.
+ ops-CHaN@listas.IRC-Hispano.org 			- lista de opers. sobre CHaN.
+ kryogen@listas.IRC-Hispano.org 			- problemas con las listas.
+
+
+Webs:
+
+ http://www.IRC-Hispano.org/index.php?seccion=ayuda 	- ayuda
+ http://www.IRC-Hispano.org/index.php?seccion=tutoriales - tutoriales
+ http://old.IRC-Hispano.org/admin/admision.html 	- linkar un servidor al IRC-Hispano
+ http://www.IRC-Hispano.org/index.php?idw=68 		- incluir webchat en una web
+ http://www.IRC-Hispano.org/index.php?idw=69 		- incluir un javachat en una web
+ http://www.IRC-Hispano.org/index.php?idw=93 		- como ser oper
+ http://www.IRC-Hispano.org/index.php?idw=47		- 1 virus, troyanos, puertos mal configurados...
+ http://www.IRC-Hispano.org/index.php?idw=48 		- 2 virus, troyanos, puertos mal configurados...
+ http://www.IRC-Hispano.org/servicios 			- contratar publicidad
+ http://www.IRC-Hispano.org/ayuda/seguridad 		- router hackeado, seguridad
+ http://www.IRC-Hispano.org/index.php?idw=103 		- configurar hotmail
+ http://www.IRC-Hispano.org/servicios/noexpire.html 	- noexpire
+ http://www.IRC-Hispano.org/admin/canales.html 		- normas de registro de canales
+ http://www.IRC-Hispano.org/index.php?idw=89 		- motivos de suspension de canales
+ http://www.IRC-Hispano.org/index.php?idw=72 		- ipvirtual
+
+
+---
+v1.4
+Revision: Gonzo, SPEDRO, <NiCKs que lo revisen aqui>, ...

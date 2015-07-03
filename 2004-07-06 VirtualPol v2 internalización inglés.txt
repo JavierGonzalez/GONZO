@@ -1,0 +1,147 @@
+; ###### IMPORTANTE #####
+; Cada linea es un msg que envia el bot al privado en respuesta a un 
+comando.
+; La primera palabra seguida de un = no se modificara jamas, es el item,
+; Importante respetar estrictamente los espacios y los colores y mas aun el 
+codigo, por ejemplo: gettok($read -l $+ %h ciudadanos.ini,4,58)
+; No tocar $codigo ni [categorias] ni items=
+; No modificar NADA del idioma base [castellano] jamas
+; ###### IMPORTANTE #####
+
+
+[ingles]
+; Por Johnny_Palillo
+error=Citizen, the command is wrong or it is unnaccesible. Further help 
+at:12,0 www.virtualpol.com/ayuda_virtualpol.htm 2,0 Gracias :]
+cargo1=Is not a Pol´s citizen.
+cargo2=The nick $3 no puede eliminar el cargo $4 Because he doesn´t own 
+it.
+cargo3=He/She has been eliminated from the charge $4 del ciudadano $3 $+ 
+. Now, he/she owns the charges of: $gettok($read -l $+ %h 
+ciudadanos.ini,4,58)
+cargo4=The nick $3 is not a Pol´s citizen.
+cargo5=He/She has been added to the charge of $4 al ciudadano $3 $+ . Now, 
+he/she owns the charges of: $gettok($read -l $+ %h ciudadanos.ini,4,58)
+votacion1=There is not any voting on course.
+votacion2=Voting finished.
+votacion3=There is already a voting on course.
+votacion4=The voting has been activated with %num.elecciones posibles 
+elecciones: $3-
+registrar1=Citizen $2 $+ . He/She cnnot be erased.
+registrar2=Citizen $2 has been erased from Pol´s database.
+registrar3=You cannot use this command.
+registrar4=User $2 already exists.
+registrar5=The new citizen $2 has been added.
+registrar6=The nick $2 already is a Pol´s citizen.
+info1=Nick:12,0 $nick 2,0 DNI:12,0 $gettok($read -l $+ %linea 
+ciudadanos.ini,2,58) 2,0 Charge:12,0 $replace($gettok($read -l $+ %linea 
+ciudadanos.ini,4,58),$chr(46),$chr(32)) 2,0 Political Party:12,0 
+$gettok($read -l $+ %linea ciudadanos.ini,9,58) 2,0 Antecedents:12,0 
+$iif($gettok($read -l $+ %linea ciudadanos.ini,8,58) != 
+$chr(32),$gettok($read -l $+ %linea ciudadanos.ini,8,58),ninguno) 2,0 Date 
+of registry:12,0 $gettok($read -l $+ %linea ciudadanos.ini,6,58) 2,0 
+Titles:12,0 $gettok($read -l $+ %linea ciudadanos.ini,11,58) 2,0 
+Dinero:12,0 $gettok($read -l $+ %linea ciudadanos.ini,5,58) Pols 
+14(activated and safe)
+info2=Nick:12,0 $gettok($read -l $+ %i ciudadanos.ini,3,58) 2,0 
+Charge:12,0 $replace($gettok($read -l $+ %i 
+ciudadanos.ini,4,58),$chr(46),$chr(32)) 2,0 Political Party:12,0 
+$gettok($read -l $+ %i ciudadanos.ini,9,58) 2,0 Antecedents:12,0 
+$iif($gettok($read -l $+ %i ciudadanos.ini,8,58) != $chr(32),$gettok($read 
+-l $+ %i ciudadanos.ini,8,58),ninguno) 2,0 Titles:12,0 $gettok($read -l 
+$+ %linea ciudadanos.ini,11,58)
+info3=Nick:12,0 $gettok($read -l $+ %i ciudadanos.ini,3,58) 2,0 
+DNI:12,0 $gettok($read -l $+ %i ciudadanos.ini,2,58) 2,0 Charge:12,0 
+$replace($gettok($read -l $+ %i ciudadanos.ini,4,58),$chr(46),$chr(32)) 
+2,0 Political Party:12,0 $gettok($read -l $+ %i ciudadanos.ini,9,58) 
+2,0 Antecedents:12,0 $iif($gettok($read -l $+ %i ciudadanos.ini,8,58) != 
+$chr(32),$gettok($read -l $+ %i ciudadanos.ini,8,58),ninguno) 2,0 Date of 
+registry:12,0 $gettok($read -l $+ %i ciudadanos.ini,6,58) 2,0 
+Titles:12,0 $gettok($read -l $+ %linea ciudadanos.ini,11,58) 2,0 
+Dinero:12,0 $gettok($read -l $+ %i ciudadanos.ini,5,58) Pols 14(activated 
+and safe)
+info4=The nick $2 is not a Pol´s citizen.
+info5=I am Pol´s official bot. My creator is12,0 GONZO2,0. Actually, I 
+have12,0 $lines(pol_remotes.ini) 2,0lines of code. I have answered12,0 
+$lines(log.ini) 2,0commands.
+escrutinio1=There is not any voting on course.
+escrutinio2=You must vote to see the results.
+escrutinio3=Recount: $round($calc( %num.votaciones * 100 / 
+$lines(ciudadanos.ini) ),0) $+ % $+ ( $+ %num.votaciones $+ ) votes: 
+%datos.votacion  14 <15 $+ $fulldate $+ 14>
+votar1=You have already voted :)
+votar2=That choice does not exist.
+votar3=You have correctly voted for $2 $+ . Thanks :>
+mundo1=World information. Citizens:12,0 $lines(ciudadanos.ini) 2,0 
+Voting:12,0 %v 2,0 Political Partys:12,0 %partidos 2,0 Total amount 
+of money:12,0 %dinero.total Pols 2,0 Answered commands:12,0 
+$lines(log.ini) 2,0 Biggest 5 richest of Pol:12,0 %riquisimos 2,0 Topic 
+cost:12,0 %poltopic
+ayuda1=Help at: 12,0www.virtualpol.com/ayuda_virtualpol.htm
+antecedentes1=You have removed 1 antecedent to $3 $+ . Now he/she has 
+$gettok($read -l $+ %a ciudadanos.ini,8,58) $+ .
+antecedentes2=You have added 1 antecedent to $3 $+ . Now he/she has 
+$gettok($read -l $+ %a ciudadanos.ini,8,58) $+ .
+afiliarse1=You don´t belong to any political party.
+afiliarse2=You have joined at $2 .
+ver1=There are %y $2 $+ : %cargos.n
+ver2=There is not any charge $2 $+ .
+ver3=There is not any charge $2 $+ .
+afiliados1=There are %y members of the party $2 $+ : %cargos.n
+afiliados2=There is not any member of the party $2 $+ .
+pagar1=You are asking me for something strange. Incorrect pay.
+pagar2=The nick $2 does not exist.
+pagar3=You do not have enough money to make that transfer.
+pagar4=Paid of $3 Pols correct.
+pagar5=You do not have enough money. Transfer cancelled.
+pagar6=I do not understand the concept. Transfer cancelled.
+pagar7=The account $5 does not exist.
+pagar8=You are not the owner of this bank account $5 $+ .
+pagar9=You do not have enough money in your bank account $5 $+ .
+pagar10=The citizen $6 does not exist.
+pagar11=You have transfered $3 Pols to citizen $6 from your account $5 
+%+ . Thanks for using my services.
+pagar12=The account $5 does not exist.
+pagar13=Incoming paid to account $5 $+ . Thanks for using my services.
+pagar14=More than 180 characters are not allowed and you have written 
+$len($5-) $+ .  Incorrect pay.
+pagar15=You must pay the exactly cost. Incorrect pay.
+pagar16=Message to channel #Pol send by $nick $+ . Thanks for using my 
+services.
+pagar17=Bloqued Topic
+pagar18=More than 80 characters are not allowed and you have written 
+$len($5-) $+ .  Incorrect pay.
+pagar19=You must pay the exactly cost. Incorrect pay.
+pagar20=You have activated the automatic greeting. It will be on until next 
+friday, after the pay.
+pagar21=More than 180 characters are not allowed and you have written 
+$len($5-) $+ .  Incorrect pay.
+pagar22=You must exceed the actual Topic cost, which is %poltopic Pols. 
+Incorrect pay.
+pagar23=You have bought the Topic for $3 Pols.
+pagar24=Bloqued Topic
+pagar25=You cannot pay anything if you do not have any money.
+sueldo1=The salary of charge $2 has bee changed to $3 weekly Pols.
+turista1=The tourist $2 has never entered when I was in.
+turista2=The tourist $2 enyered for the first time at $gettok($read -l $+ 
+%turista turistas.ini,2,58) $+ .
+cuenta1=Bank Information. Owner:12,0 $gettok($read -l $+ %info 
+cuentas.ini,1,58) 2,0 Account:12,0 $gettok($read -l $+ %info 
+cuentas.ini,2,58) 2,0 Money:12,0 $gettok($read -l $+ %info 
+cuentas.ini,3,58) Pols 2,0 Last person in deposit money:12,0 
+$gettok($read -l $+ %info cuentas.ini,4,58) 2,0 Opening date:12,0 
+$gettok($read -l $+ %info cuentas.ini,5,58) 2,0 Modification date:12,0 
+$gettok($read -l $+ %info cuentas.ini,6,58) 
+cuenta2=Bank information. Owner:12,0 $gettok($read -l $+ %info 
+cuentas.ini,1,58) 2,0 Account:12,0 $gettok($read -l $+ %info 
+cuentas.ini,2,58) 2,0 Money:12,0 $gettok($read -l $+ %info 
+cuentas.ini,3,58) Pols  2,0 Last person in deposit money:12,0 
+$gettok($read -l $+ %info cuentas.ini,4,58) 2,0 Opening date:12,0 
+$gettok($read -l $+ %info cuentas.ini,5,58) 2,0 Modification date:12,0 
+$gettok($read -l $+ %info cuentas.ini,6,58) 
+cuenta3=Account  $4 already exists.
+cuenta4=Opened account of name $4 property of $3 $+ .
+empresa1=Se ha creado la empresa $4 $+ .
+idioma1=Available Languages: Castillian, Catalonian and English.
+idioma2=You have changed language to $2 $+ .
+idioma3=Language $2 $+  does not exist.
