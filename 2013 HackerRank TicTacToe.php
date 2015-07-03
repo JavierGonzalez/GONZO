@@ -1,5 +1,6 @@
 <?php
-function nextMove($player, $board){
+
+function nextMove($player, $board) {
     
     $targets = array(
         // Diagonal
@@ -84,12 +85,10 @@ function nextMove($player, $board){
 
 
 
-///// hackerrank.com
+
+///// HackerRank:
 $fp = fopen("php://stdin", "r");
-//If player is X, I'm the first player.
-//If player is O, I'm the second player.
 fscanf($fp, "%s", $player);
-//Read the board now. The board is a 3x3 array filled with X, O or _.
 $board = array();
 for ($i=0; $i<3; $i++) { 
     fscanf($fp, "%s", $board[$i]);
