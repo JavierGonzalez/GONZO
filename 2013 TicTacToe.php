@@ -34,14 +34,13 @@ function nextMove($player, $board){
     
     // Win or Survive
     foreach (array($player, ($player!='O'?'O':'X')) AS $p)
-        if (is_array($s[$p]))
-            foreach ($s[$p] AS $target_ID=>$num)
-                if ($num==2)
-                    foreach ($targets[$target_ID] AS $xy)
-                        if (!$g[$xy]) {
-                            $xy = str_split($xy);
-                            return $xy[0].' '.$xy[1];
-                        }
+        foreach ((array)$s[$p] AS $target_ID=>$num)
+            if ($num==2)
+                foreach ($targets[$target_ID] AS $xy)
+                    if (!$g[$xy]) {
+                        $xy = str_split($xy);
+                        return $xy[0].' '.$xy[1];
+                    }
     
     
     // Adaptative strategies: Win
