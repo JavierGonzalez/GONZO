@@ -1,0 +1,1 @@
+<?while($n++-100)echo$n%3?!$$n=$n:Fizz,$n%5?$$n:Buzz,~ò;
