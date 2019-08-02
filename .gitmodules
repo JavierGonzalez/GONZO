@@ -9,3 +9,7 @@
 [submodule "Sorteo-Universal"]
 	path = Sorteo-Universal
 	url = https://github.com/JavierGonzalez/Sorteo-Universal
+	
+[submodule "BMP"]
+	path = BMP
+	url = https://github.com/JavierGonzalez/BMP
