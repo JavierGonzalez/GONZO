@@ -1,7 +1,8 @@
 #!/bin/sh
-# popsec.sh
 
-export POPSEC_UID="root"
+export POPSEC_UID="root" # Default masterkey derivation (recipient) for SSH and GPG.
+
+export GNUPGHOME=~/.gnupg/"$POPSEC_UID"
 
 popsec_help() {
     cat << EOF
@@ -14,11 +15,12 @@ popsec_help() {
 
                     Personal OPSEC                
 
-  popsec_install                      (one time)
+  popsec_install
   popsec_init                         + Hardware Auth (one time)
 
   popsec_public_gpg                   
   popsec_public_ssh                   + Hardware Check
+  popsec_adduid '<realname>' <email>  + Hardware Auth
 
   popsec_encrypt <dir | file>         
   popsec_decrypt <file.*.gpg>         + Hardware Auth
@@ -26,40 +28,53 @@ popsec_help() {
   popsec_sign '<text>'                + Hardware Auth
   popsec_verify <file.txt>            (BEGIN PGP SIGNATURE)
 
-  popsec_backup                       + Hardware Auth    Personalize this!
-
 EOF
 
-    # Personal security script for hardware autentication with SSH and GPG to encrypt, sign, verify and backup.
+    # A Personal OPeration SECurity script for hardware autentication.
+    # Allowing universal autentication (SSH, GPG, encrypt, sign, FIDO2). 
+    # Trying just one hardware-protected masterkey for everything.
 
-    # Author: gonzo@virtualpol.com (2024-08)
+    # Tested in Ubuntu 24.04 and MacOS 10.15 with Trezor Model T (good), Trezor Safe 3 and Trezor Safe 5 (best).
+    # Author: gonzo@virtualpol.com  A3AD 4AC5 F252 8190 65A5 75A0 B9C3 5FBF 43B3 19C2
 
-    # Shamir Secret Sharing: offline generation with https://iancoleman.io/slip39/ (128 bits)  https://github.com/iancoleman/slip39
-    
-    # Hardware required: Trezor Safe 5 (2024) or equivalent.
+    # Based in trezor-agent https://github.com/romanz/trezor-agent by Roman Zeyde.
 
-
-
-    # To add uid:
-    ## gpg --edit-key
-    ## adduid
-    ## save
+    # Recomended:
+    # Shamir Secret Sharing: offline generated with https://iancoleman.io/slip39/ (128 bits, 20 words)  https://github.com/iancoleman/slip39
+    # Hardware: Trezor Safe 5 (2024) or equivalent.
 
 
-    # nano ~/.bash.rc
-    # . ~/popsec.sh
+    # To add uid (for GIT commit sign):
+    # gpg --edit-key
+    #> adduid
+    #> save
+    # popsec_public_gpg
 
-    # Reload this code
-    . ~/popsec.sh
+
+    # Add this next line in: .bash.rc (Linux) or .zshrc (MacOS):
+    source ~/popsec.sh
 }
 
 
 popsec_install() {
+    if [ ! -f "$HOME/popsec.sh" ]; then
+        echo "ERROR: $HOME/popsec.sh file does not exist."
+        return 1
+    fi
+
+    # https://suite.trezor.io/web/bridge/
+
     # https://github.com/romanz/trezor-agent/blob/master/doc/INSTALL.md
     sudo apt install python3-pip python3-dev python3-tk libusb-1.0-0-dev libudev-dev
     pip3 install trezor-agent --break-system-packages
-    
-    # https://suite.trezor.io/web/bridge/
+
+    trezor-agent --version
+
+    echo ""
+    echo ""
+    echo " Add this next line in .bash.rc (Linux) or .zshrc (MacOS):"
+    echo "   source ~/popsec.sh"
+    echo ""
 }
 
 
@@ -71,25 +86,45 @@ popsec_init() { # uid
     [ -z "$POPSEC_UID" ] && echo "ERROR: uid not found" && return
 
 
-    # GPG init
-    # rm -rf ~/.gnupg
+    # trezor-gpg init
     export GNUPGHOME=~/.gnupg/"$POPSEC_UID"
     if [ ! -d ~/.gnupg/"$POPSEC_UID" ]; then
         # https://github.com/romanz/trezor-agent/blob/master/doc/README-GPG.md
-        trezor-gpg init "$POPSEC_UID" -v
+        trezor-gpg init "$POPSEC_UID" --verbose
     fi
     
     
-    git config --global user.signingkey \
-        "$(gpg --fingerprint | grep -A 1 'pub' | tail -n 1 | tr -d ' ')"
-    
+    git config --global user.signingkey "$(popsec_fingerprint)"
     git config --global commit.gpgsign true
     git config --global gpg.program "$(which gpg)"
     
 
     gpg --list-keys
 
-    trezor-agent "$POPSEC_UID" -s
+    trezor-agent "$POPSEC_UID" --shell
+}
+
+
+popsec_adduid() { # realname email
+    [ -z "$1" ] && return
+    [ -z "$2" ] && return
+
+    # Editar la clave GPG para añadir el UID
+    gpg --command-fd 0 --edit-key "$(popsec_fingerprint)" <<EOF
+adduid
+$1
+$2
+
+O
+save
+EOF
+
+    popsec_public_gpg
+}
+
+
+popsec_reset() {
+    rm -rf ~/.gnupg
 }
 
 
@@ -105,7 +140,6 @@ popsec_public_gpg() {
     echo ""
     gpg --armor --export
     echo ""
-    # gpg --fingerprint | grep -A 1 'pub' | tail -n 1 | tr -d ' '
 }
 
 
@@ -117,13 +151,11 @@ popsec_public_ssh() { # user
 
 popsec_sign() { # text
     [ -z "$1" ] && return
+
     gpg --list-keys
-    
-    echo ""
     echo ""
     echo ""
     echo "$1" | gpg --sign --recipient "$POPSEC_UID" --clearsign --digest-algo SHA256
-    echo ""
     echo ""
     echo ""
 }
@@ -137,7 +169,6 @@ popsec_verify() { # file.txt with BEGIN PGP...
 
 
 popsec_encrypt() { 
-    # Check if argument is provided
     if [ -z "$1" ]; then
         echo "Error: No file or directory specified."
         return 1
@@ -221,6 +252,20 @@ popsec_decrypt() { # file or directory *.tar.gpg or *.gpg
 }
 
 
+popsec_clean() {
+    sudo find . -type f -name '.DS_Store' -delete
+    sudo find . -type f -name '._*' -delete
+}
+
+popsec_fingerprint() {
+    gpg --list-keys | grep -A 1 'pub' | tail -n 1 | tr -d ' '
+}
+
+
+
+############## DEV ###############
+
+
 popsec_backup() { 
     gpg --list-keys
 
@@ -262,27 +307,4 @@ popsec_backup() {
     # Print the location of the backup file
     echo "Backup created successfully: $backup_file"
     return 0
-}
-
-
-popsec_clean() {
-    sudo find . -type f -name '.DS_Store' -delete
-    sudo find . -type f -name '._*' -delete
-}
-
-
-
-############## DEV ###############
-
-popsec_pass() { # derivation experimental
-    return # TODO
-
-    [ -z "$1" ] && return
-    gpg --list-keys
-    
-    echo "$1" \
-        | gpg --clearsign --local-user "$POPSEC_UID" \
-        | openssl dgst -sha256 -binary \
-        | base64 \
-        | head -c 16
 }
