@@ -1,9 +1,5 @@
 #!/bin/sh
 
-export POPSEC_UID="root" # Default masterkey derivation (recipient) for SSH and GPG.
-
-export GNUPGHOME=~/.gnupg/"$POPSEC_UID"
-
 popsec_help() {
     cat << EOF
 
@@ -34,6 +30,7 @@ EOF
     # Allowing universal autentication (SSH, GPG, encrypt, sign, FIDO2). 
     # Trying just one hardware-protected masterkey for everything.
 
+
     # Tested in Ubuntu 24.04 and MacOS 10.15 with Trezor Model T (good), Trezor Safe 3 and Trezor Safe 5 (best).
     # Author: gonzo@virtualpol.com  A3AD 4AC5 F252 8190 65A5 75A0 B9C3 5FBF 43B3 19C2
 
@@ -44,16 +41,13 @@ EOF
     # Hardware: Trezor Safe 5 (2024) or equivalent.
 
 
-    # To add uid (for GIT commit sign):
-    # gpg --edit-key
-    #> adduid
-    #> save
-    # popsec_public_gpg
-
-
     # Add this next line in: .bash.rc (Linux) or .zshrc (MacOS):
     source ~/popsec.sh
 }
+
+export POPSEC_UID="root" # Default masterkey derivation (recipient) for SSH and GPG.
+
+export GNUPGHOME=~/.gnupg/"$POPSEC_UID"
 
 
 popsec_install() {
