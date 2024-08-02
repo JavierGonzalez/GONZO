@@ -33,6 +33,7 @@ EOF
 
     # Tested in Ubuntu 24.04 and MacOS 10.15 with Trezor Model T (good), Trezor Safe 3 and Trezor Safe 5 (best).
     # Author: gonzo@virtualpol.com  A3AD 4AC5 F252 8190 65A5 75A0 B9C3 5FBF 43B3 19C2
+    # https://github.com/JavierGonzalez/GONZO/blob/master/popsec.sh
 
     # Based in trezor-agent https://github.com/romanz/trezor-agent by Roman Zeyde.
 
